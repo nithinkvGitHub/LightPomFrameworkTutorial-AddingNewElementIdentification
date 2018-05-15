@@ -20,7 +20,7 @@ namespace ElementInteractions
         [TestInitialize]
         public void SetupBeforeEveryTestMethod()
         {
-            Driver = new WebDriverFactory().Create(BrowserType.FireFox);         
+            Driver = new WebDriverFactory().Create(BrowserType.Chrome);         
         }
         [TestMethod]
         public void DifferentTypesOfSeleniumLocationStrategies()
@@ -63,17 +63,11 @@ namespace ElementInteractions
             var element = Driver.FindElement(locationStrategy);
             var originalStyle = element.GetAttribute("style");
             IJavaScriptExecutor JavaScriptExecutor = Driver as IJavaScriptExecutor;
-            JavaScriptExecutor.ExecuteScript("arguments[0].setAttribute(arguments[1], arguments[2])",
-                element,
-                "style",
-                "border: 7px solid yellow; border-style: dashed;");
-
+            JavaScriptExecutor.ExecuteScript("arguments[0].setAttribute(arguments[1], arguments[2])",element,"style","border: 7px solid yellow; border-style: dashed;color:red;");
+           
             if (duration <= 0) return;
             Thread.Sleep(TimeSpan.FromSeconds(duration));
-            JavaScriptExecutor.ExecuteScript("arguments[0].setAttribute(arguments[1], arguments[2])",
-                element,
-                "style",
-                originalStyle);
+            JavaScriptExecutor.ExecuteScript("arguments[0].setAttribute(arguments[1], arguments[2])",element,"style",originalStyle);
         }
         [TestCleanup]
         public void CleanupAfterEveryTestMethod()
