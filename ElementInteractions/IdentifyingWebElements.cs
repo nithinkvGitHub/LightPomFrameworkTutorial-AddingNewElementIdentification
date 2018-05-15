@@ -20,7 +20,7 @@ namespace ElementInteractions
         [TestInitialize]
         public void SetupBeforeEveryTestMethod()
         {
-            Driver = new WebDriverFactory().Create(BrowserType.Chrome);         
+            Driver = new WebDriverFactory().Create(BrowserType.FireFox);         
         }
         [TestMethod]
         public void DifferentTypesOfSeleniumLocationStrategies()

@@ -5,6 +5,8 @@ using System.IO;
 using System.Reflection;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
 
 namespace AutomationResources
 {
@@ -16,15 +18,28 @@ namespace AutomationResources
             {
                 case BrowserType.Chrome:
                     return GetChromeDriver();
+                case BrowserType.FireFox:
+                    return GetFireFoxDriver();
+                case BrowserType.IE:
+                    return GetIEDriver();
                 default:
                     throw new ArgumentOutOfRangeException("No such browser exists");
             }
         }
+
+        private IWebDriver GetIEDriver()
+        {
+            return new InternetExplorerDriver(GetSeleniumBinaryLocation());
+        }
+
+        private IWebDriver GetFireFoxDriver()
+        {
+            return new FirefoxDriver(GetSeleniumBinaryLocation());
+        }
+
         private IWebDriver GetChromeDriver()
         {
-            var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var resourcesDirectory = Path.GetFullPath(Path.Combine(outPutDirectory, @"..\..\..\AutomationResources\bin\Debug"));
-            return new ChromeDriver(resourcesDirectory);
+            return new ChromeDriver(GetSeleniumBinaryLocation());
         }
 
         public IWebDriver CreateSauceDriver(string browser, string version, string os, string deviceName, string deviceOrientation)
