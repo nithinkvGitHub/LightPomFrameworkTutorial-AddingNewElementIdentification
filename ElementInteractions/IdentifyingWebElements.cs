@@ -57,18 +57,22 @@ namespace ElementInteractions
         }
 
 
-
+        
         private void HighlightElementUsingJavaScript(By locationStrategy, int duration = 2)
         {
             var element = Driver.FindElement(locationStrategy);
             var originalStyle = element.GetAttribute("style");
-            IJavaScriptExecutor JavaScriptExecutor = Driver as IJavaScriptExecutor;
-            JavaScriptExecutor.ExecuteScript("arguments[0].setAttribute(arguments[1], arguments[2])",element,"style","border: 7px solid yellow; border-style: dashed;color:red;");
-           
+
+            IJavaScriptExecutor JavaScriptExecutor = Driver as IJavaScriptExecutor; // Cast IwebDriver type to JIjavaScriptExecutor and assigning Driver to a Variable.
+            JavaScriptExecutor.ExecuteScript("arguments[0].setAttribute(arguments[1], arguments[2])", element, "style", "border: 7px solid yellow; border-style: dashed;color:red;");
+            //IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;  // Cast IwebDriver type to JIjavaScriptExecutor and assigning Driver to a Variable.
+
             if (duration <= 0) return;
             Thread.Sleep(TimeSpan.FromSeconds(duration));
-            JavaScriptExecutor.ExecuteScript("arguments[0].setAttribute(arguments[1], arguments[2])",element,"style",originalStyle);
+            JavaScriptExecutor.ExecuteScript("arguments[0].setAttribute(arguments[1], arguments[2])", element, "style", originalStyle);
         }
+
+
         [TestCleanup]
         public void CleanupAfterEveryTestMethod()
         {
