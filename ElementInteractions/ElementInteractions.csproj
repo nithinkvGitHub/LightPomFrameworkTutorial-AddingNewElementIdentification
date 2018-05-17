@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PractceTests.cs" />
     <Compile Include="ElementIdentification.cs" />
     <Compile Include="IdentifyingWebElements.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
