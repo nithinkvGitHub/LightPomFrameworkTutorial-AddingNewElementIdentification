@@ -93,7 +93,24 @@ namespace ElementInteractions
             Driver.FindElement(By.Id("et_pb_contact_message_1")).SendKeys("Text Message");
             Driver.FindElement(By.CssSelector("button.et_pb_contact_submit:nth-child(1)")).Submit();
 
+            
 
+            var name = Driver.FindElements(By.Id("et_pb_contact_name_1"));
+            name[0].SendKeys("Name");
+            var message = Driver.FindElements(By.Id("et_pb_contact_message_1"));
+            message[0].SendKeys("Message");
+            var captcha = Driver.FindElement(By.ClassName("et_pb_contact_captcha_question"));
+
+            var table = new DataTable();
+            var answer = table.Compute(captcha.Text, "");
+
+            Driver.FindElement(By.XPath("//input[@type='text'][@name='et_pb_contact_captcha_1']")).SendKeys(answer.ToString());
+
+            var submitButton = Driver.FindElements(By.ClassName("et_contact_bottom_container"));
+
+            submitButton[0].Submit();
+            var successMessage = Driver.FindElements(By.ClassName("et-pb-contact-message"))[1].FindElement(By.TagName("p"));
+            Assert.IsTrue(successMessage.Text.Equals("Success"));
         }
 
         [TestCleanup]
