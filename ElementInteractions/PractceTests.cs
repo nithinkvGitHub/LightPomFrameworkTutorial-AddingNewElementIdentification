@@ -5,6 +5,7 @@ using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 
 namespace ElementInteractions
 {
@@ -108,10 +109,78 @@ namespace ElementInteractions
 
             var submitButton = Driver.FindElements(By.ClassName("et_contact_bottom_container"));
 
-            submitButton[0].Submit();
-            var successMessage = Driver.FindElements(By.ClassName("et-pb-contact-message"))[1].FindElement(By.TagName("p"));
-            Assert.IsTrue(successMessage.Text.Equals("Success"));
+            //submitButton[0].Submit();
+            //var successMessage = Driver.FindElements(By.ClassName("et-pb-contact-message"))[1].FindElement(By.TagName("p"));
+            //Assert.IsTrue(successMessage.Text.Equals("Success"));
         }
+
+
+        [TestMethod]
+
+        [TestCategory("Driver Interogations")]
+
+        public void DriverInterogations()
+        {
+            Driver.Navigate().GoToUrl("https://www.ultimateqa.com/automation");
+
+            var x = Driver.CurrentWindowHandle;
+            var y = Driver.WindowHandles;
+
+            x = Driver.PageSource;
+            x = Driver.Title;
+            x = Driver.Url;
+
+        }
+
+        [TestMethod]
+
+        [TestCategory("Element Interogations")]
+
+        public void ElementInterogations()
+        {
+            Driver.Navigate().GoToUrl("https://www.ultimateqa.com/automation");
+
+            var myElement = Driver.FindElement(By.XPath("//a[text()='Learn how to automate an application that evolves over time']"));
+            myElement.GetAttribute("href");
+            myElement.GetCssValue("margin");
+        }
+
+        [TestMethod]
+
+        [TestCategory("Element interogation Quiz")]
+
+        public void ElementInterogationQuiz()
+        {
+            Driver.Navigate().GoToUrl("https://www.ultimateqa.com/simple-html-elements-for-automation");
+            Driver.Manage().Window.Maximize();
+
+           var buttonId = Driver.FindElement(By.Id("button1"));
+
+           Assert.AreEqual(buttonId.GetAttribute("type"), "submit");
+           Assert.AreEqual(buttonId.GetCssValue("letter-spacing"), "normal");
+
+            Assert.IsTrue(buttonId.Displayed);
+            Assert.IsFalse(buttonId.Selected);
+
+            Assert.AreEqual(buttonId.Text, "Click Me!");
+            Assert.AreEqual(buttonId.TagName, "button");
+
+            Assert.AreEqual(buttonId.Size.Height, 21);
+            Assert.AreEqual(buttonId.Location.X, 190);
+            Assert.AreEqual(buttonId.Location.Y, 282);
+
+
+        }
+
+        [TestMethod]
+        [TestCategory("Mouse Interactions")]
+
+        public void mouseInteraction()
+        {
+            Actions action = new Actions(Driver);
+
+        }
+
 
         [TestCleanup]
 
